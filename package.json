@@ -58,5 +58,6 @@
     "regex",
     "regular expression",
     "wiki"
-  ]
+  ],
+  "version": "0.0.1"
 }
