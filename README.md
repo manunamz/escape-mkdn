@@ -148,6 +148,6 @@ $$
 ### Math spans
 
 ```
-$Some text with a $math span$.
+Some text with a $math span$.
 ```
 
