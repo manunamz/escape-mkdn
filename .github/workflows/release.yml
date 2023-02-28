@@ -1,0 +1,49 @@
+name: 💐 Release
+
+on:
+  push:
+    branches:
+      - release
+
+jobs:
+  release:
+    name: 💐 Release ${{ github.ref }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🌰 Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+
+      - name: 🪵 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🌱 Build
+        run: yarn run build
+
+      - name: 🧹 Lint
+        run: yarn run lint
+
+      - name: 💨 Test
+        run: yarn test
+
+      - name: 🌿 Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ env.npm_package_version }}
+          release_name: Release v${{ env.npm_package_version }}
+          draft: false
+          prerelease: false
+
+      - name: 🎋 Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          branch: main
+
+      - name: 🌺 Publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
