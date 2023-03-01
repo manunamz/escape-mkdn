@@ -4,6 +4,7 @@ jspm_packages/
 
 # Distribution
 dist/
+releases/
 
 # Test output
 .nyc_output/
